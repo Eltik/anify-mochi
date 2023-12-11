@@ -1,0 +1,18 @@
+{
+  "repository": {
+    "name": "GogoAnime",
+    "description": "basic GogoAnime module \nThank Consumet for their extractors:\n https://github.com/consumet/consumet.ts",
+    "author": "DeNeRr",
+    "icon": "https://anitaku.to/img/icon/logo.png"
+  },
+  "modules": [
+    {
+      "id": "GoGoAnimeSource",
+      "name": "GoGoAnime Source",
+      "version": "1.0.1",
+      "file": "/modules/module.js",
+      "meta": [],
+      "mochiJSVersion": "0.0.2"
+    }
+  ]
+}

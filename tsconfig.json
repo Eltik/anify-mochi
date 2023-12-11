@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "noEmit": true,
+    "strict": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Node",
+    "isolatedModules": true,
+  },
+  "exclude": [
+    "node_modules"
+  ]
+}
