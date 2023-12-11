@@ -11,3 +11,4 @@ Dockerfile.*
 .eslintrc
 *.html
 *.lockb
+*.gitignore
