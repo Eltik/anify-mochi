@@ -12,3 +12,4 @@ Dockerfile.*
 *.html
 *.lockb
 *.gitignore
+*.prettierignore
