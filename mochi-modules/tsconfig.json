@@ -16,7 +16,7 @@
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "jsx": "preserve",
-    "incremental": true,
+    "incremental": false,
     "skipLibCheck": true
   },
   "include": ["src"],
