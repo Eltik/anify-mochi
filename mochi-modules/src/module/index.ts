@@ -10,6 +10,7 @@ import {
     PlaylistEpisodeServerResponse,
     PlaylistEpisodeSource,
     PlaylistEpisodeSourcesRequest,
+    PlaylistGroupVariant,
     PlaylistID,
     PlaylistItemsOptions,
     PlaylistItemsResponse,
@@ -284,7 +285,7 @@ export default class Source extends SourceModule implements VideoContent {
     async playlistEpisodes(playlistId: PlaylistID, options?: PlaylistItemsOptions): Promise<PlaylistItemsResponse> {
         const data: EpisodeData[] = await (await request.get(`${API_BASENAME}/episodes?id=${playlistId}`)).json();
 
-        const variants = [];
+        const variants: PlaylistGroupVariant[] = [];
 
         for (const provider of data) {
             const pagings: Paging<PlaylistItem>[] = [];
