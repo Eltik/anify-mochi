@@ -1,15 +1,15 @@
 {
   "repository": {
     "name": "Anify",
-    "description": "Anify module developed by Eltik.",
+    "description": "Anify module coded by Eltik.",
     "author": "Eltik",
     "icon": "https://anitaku.to/img/icon/logo.png"
   },
   "modules": [
     {
-      "id": "AnifyAnimeSource",
+      "id": "Anify",
       "name": "Anify Source",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "file": "/modules/module.js",
       "meta": [],
       "mochiJSVersion": "0.0.2"
