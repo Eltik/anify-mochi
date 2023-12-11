@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Mochi-Modules</title>
+    <meta name="description" content="Webpage for Mochi-Modules">
+    <link href='https://fonts.googleapis.com/css?family=Figtree' rel='stylesheet'>
+    <style>
+        html,
+        body {
+            background-color: #0F0F0F;
+            padding: 0;
+            margin: 0;
+            font-family: 'Figtree';
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .container {
+            max-width: 576px;
+            margin: 0 auto 0 auto;
+            padding: 2rem;
+        }
+
+        .header {
+            align-items: center;
+            display: flex;
+            font-size: x-large;
+            padding: 1rem 0 1rem 0;
+            font-weight: 900;
+        }
+
+        .header-title {
+            flex-grow: 1;
+        }
+
+        .add-repo {
+            padding: 1rem;
+            background-color: hsl(174, 76%, 34%);
+            font-size: medium;
+            border-radius: 8px;
+            flex-shrink: 1;
+        }
+
+        .header>a {
+            text-decoration: none;
+            color: white;
+        }
+
+        ul {
+            color: white;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul>li {
+            border-radius: 12px;
+            border-color: #80808040;
+            border-width: 2px;
+            border-style: solid;
+            background-color: #2A2A2A;
+            padding: 0rem;
+        }
+
+        li:not(:last-child) {
+            margin-bottom: 1rem;
+        }
+
+        .flexbox {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 1.5rem;
+        }
+
+        #module-search-input {
+            width: 100%;
+            border: 1px solid rgba(128, 128, 128, 0.41);
+            border-radius: 8px;
+            color: white;
+            padding: 1rem;
+            outline: 0;
+            background-color: hsl(0, 0%, 18%);
+            margin: 0.5rem 0 1rem 0;
+            box-sizing: border-box;
+        }
+
+        .module-info {
+            flex-grow: 1;
+        }
+
+        .module-info>* {
+            margin: 0.25rem;
+        }
+
+        .module-info>p {
+            color: #AFAFAF;
+        }
+
+        .install-module-button {
+            align-self: center;
+            background-color: #4F4F4F;
+            padding: 0.5rem;
+            border-radius: 6px;
+            text-decoration: none;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <a href="/" class="header-title">
+                <span>Mochi-Modules</span>
+            </a>
+            <a id="repo-to-mochi" href="#" class="add-repo">Add Repo</a>
+        </div>
+        <input id="module-search-input" type="text" placeholder="Search.." onkeyup="searchModule()" />
+        <ul id="modules-list">
+            
+            <li>
+                <div class="flexbox">
+                    <div class="module-info">
+                        <h3>Anify Source</h3> 
+                        <p></p>
+                    </div>
+                    <a href="#" class="install-module-button" data-id="">Get</a>
+                </div>
+            </li>
+            
+        </ul>
+    </div>
+    <script>
+        let repoURL = encodeURIComponent(window.location.origin);
+        document.getElementById("repo-to-mochi").href = "mochi://add-repo?url=" + repoURL;
+
+        let moduleButtons = document.getElementsByClassName("install-module-button");
+        Array.from(moduleButtons).forEach((element) => {
+            element.href = "mochi://add-module?repoURL=" + repoURL + "&moduleID=" + encodeURIComponent(element.dataset.id);
+        });
+
+        function searchModule() {
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('module-search-input');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("modules-list");
+            li = ul.getElementsByTagName('li');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("h3")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        } 
+    </script>
+</body>
+
+</html>

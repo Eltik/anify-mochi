@@ -1,0 +1,16 @@
+{
+  "repository": {
+    "name": "Mochi-Modules",
+    "author": "Eltik"
+  },
+  "modules": [
+    {
+      "id": "AnifySource",
+      "name": "Anify Source",
+      "version": "1.0.0",
+      "file": "/modules/module.js",
+      "meta": [],
+      "mochiJSVersion": "0.0.2"
+    }
+  ]
+}
