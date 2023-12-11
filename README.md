@@ -1,7 +1,10 @@
 # Mochi Repository
 
 ### Usage
-Use your favorite package manager and run:
+1. Run the following commands:
 ```bash
-npm install
+pnpm i
+pnpm check
+pnpm bundle --site
 ```
+2. Setup GitHub pages. Make sure it's enabled.
