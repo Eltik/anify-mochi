@@ -1,14 +1,14 @@
 {
   "repository": {
     "name": "Anify",
-    "description": "Anify module coded by Eltik for https://anify.tv.",
-    "author": "Eltik"
+    "author": "Eltik",
+    "description": "Anify module coded by Eltik for https://anify.tv."
   },
   "modules": [
     {
-      "id": "Anify",
+      "id": "AnifySource",
       "name": "Anify Source",
-      "version": "1.0.1",
+      "version": "1.0.0",
       "file": "/modules/module.js",
       "meta": [],
       "mochiJSVersion": "0.0.2"
