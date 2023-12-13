@@ -294,16 +294,17 @@ export default class Source extends SourceModule implements VideoContent {
             const episodes = provider.episodes;
             const groups = episodes.map((_, i) => i % 12 === 0 && episodes.slice(i, i + 12)).filter(Boolean);
 
-            for (const episodes of groups) {
-                if (!episodes) continue;
+            for (let i = 0 ; i < groups.length; i++) {
+                const episodeList = groups[i];
+                if (!episodeList) continue;
 
                 const playlistItem: Paging<PlaylistItem> = {
                     id: `${playlistId}-${provider.providerId}`,
-                    title: `${provider.providerId} - ${episodes[0].number}-${episodes[episodes.length - 1].number}`,
+                    title: `${episodeList[0].number}-${episodeList[episodes.length - 1].number}`,
                     items: [],
                 };
 
-                for (const episode of episodes) {
+                for (const episode of episodeList) {
                     playlistItem.items.push({
                         id: `${API_BASENAME}/sources?id=${playlistId}&providerId=${provider.providerId}&watchId=${episode.id}&subType=${"sub"}&episodeNumber=${episode.number}`,
                         title: episode.number.toString(),
