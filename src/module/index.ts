@@ -56,7 +56,6 @@ export default class Source extends SourceModule implements VideoContent {
     }
 
     async search(searchQuery: SearchQuery): Promise<Paging<Playlist>> {
-        console.log(`${API_BASENAME}/search?query=${searchQuery.query}&type=${"anime"}&page=${searchQuery.page ?? 1}`);
         const data: SearchSchema = await (await request.get(`${API_BASENAME}/search?query=${encodeURIComponent(searchQuery.query)}&type=${"anime"}&page=${searchQuery.page ?? 1}`)).json();
 
         const items: Playlist[] = data.results.map(
@@ -78,8 +77,8 @@ export default class Source extends SourceModule implements VideoContent {
                             : PlaylistStatus.unknown,
                     type: PlaylistType.video,
                     title: anime.title.english ?? anime.title.romaji ?? anime.title.native ?? "Unknown",
-                    bannerImage: anime.bannerImage ?? anime.coverImage ?? "",
-                    posterImage: anime.coverImage ?? anime.bannerImage ?? "",
+                    bannerImage: anime.bannerImage ?? anime.coverImage ?? undefined,
+                    posterImage: anime.coverImage ?? anime.bannerImage ?? undefined,
                 } satisfies Playlist)
         );
 
@@ -115,8 +114,8 @@ export default class Source extends SourceModule implements VideoContent {
                             : PlaylistStatus.unknown,
                     type: PlaylistType.video,
                     title: anime.title.english ?? anime.title.romaji ?? anime.title.native ?? "Unknown",
-                    bannerImage: anime.bannerImage ?? anime.coverImage ?? "",
-                    posterImage: anime.coverImage ?? anime.bannerImage ?? "",
+                    bannerImage: anime.bannerImage ?? anime.coverImage ?? undefined,
+                    posterImage: anime.coverImage ?? anime.bannerImage ?? undefined,
                 } satisfies Playlist)
         );
 
@@ -139,8 +138,8 @@ export default class Source extends SourceModule implements VideoContent {
                             : PlaylistStatus.unknown,
                     type: PlaylistType.video,
                     title: anime.title.english ?? anime.title.romaji ?? anime.title.native ?? "Unknown",
-                    bannerImage: anime.bannerImage ?? anime.coverImage ?? "",
-                    posterImage: anime.coverImage ?? anime.bannerImage ?? "",
+                    bannerImage: anime.bannerImage ?? anime.coverImage ?? undefined,
+                    posterImage: anime.coverImage ?? anime.bannerImage ?? undefined,
                 } satisfies Playlist)
         );
 
@@ -163,8 +162,8 @@ export default class Source extends SourceModule implements VideoContent {
                             : PlaylistStatus.unknown,
                     type: PlaylistType.video,
                     title: anime.title.english ?? anime.title.romaji ?? anime.title.native ?? "Unknown",
-                    bannerImage: anime.bannerImage ?? anime.coverImage ?? "",
-                    posterImage: anime.coverImage ?? anime.bannerImage ?? "",
+                    bannerImage: anime.bannerImage ?? anime.coverImage ?? undefined,
+                    posterImage: anime.coverImage ?? anime.bannerImage ?? undefined,
                 } satisfies Playlist)
         );
 
@@ -187,8 +186,8 @@ export default class Source extends SourceModule implements VideoContent {
                             : PlaylistStatus.unknown,
                     type: PlaylistType.video,
                     title: anime.title.english ?? anime.title.romaji ?? anime.title.native ?? "Unknown",
-                    bannerImage: anime.bannerImage ?? anime.coverImage ?? "",
-                    posterImage: anime.coverImage ?? anime.bannerImage ?? "",
+                    bannerImage: anime.bannerImage ?? anime.coverImage ?? undefined,
+                    posterImage: anime.coverImage ?? anime.bannerImage ?? undefined,
                 } satisfies Playlist)
         );
 
