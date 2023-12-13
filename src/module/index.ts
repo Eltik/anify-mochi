@@ -56,7 +56,8 @@ export default class Source extends SourceModule implements VideoContent {
     }
 
     async search(searchQuery: SearchQuery): Promise<Paging<Playlist>> {
-        const data: SearchSchema = await (await request.get(`${API_BASENAME}/search?query=${searchQuery.query}&type=${"anime"}&page=${searchQuery.page ?? 1}`)).json();
+        console.log(`${API_BASENAME}/search?query=${searchQuery.query}&type=${"anime"}&page=${searchQuery.page ?? 1}`);
+        const data: SearchSchema = await (await request.get(`${API_BASENAME}/search?query=${encodeURIComponent(searchQuery.query)}&type=${"anime"}&page=${searchQuery.page ?? 1}`)).json();
 
         const items: Playlist[] = data.results.map(
             (anime) =>
