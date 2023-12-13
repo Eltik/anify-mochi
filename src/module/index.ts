@@ -259,7 +259,7 @@ export default class Source extends SourceModule implements VideoContent {
             headers: sources.headers,
             subtitles: sources.subtitles.map((item) => ({
                 url: item.url,
-                name: item.label,
+                name: item.label ?? item.lang ?? "Unknown",
                 format: item.url.endsWith("vtt") ? PlaylistEpisodeServerSubtitleFormat.vtt : item.url.endsWith("ass") ? PlaylistEpisodeServerSubtitleFormat.ass : item.url.endsWith("srt") ? PlaylistEpisodeServerSubtitleFormat.srt : PlaylistEpisodeServerSubtitleFormat.vtt,
                 default: item.lang === "en-US" || item.lang?.toLowerCase().includes("english") ? true : false,
                 autoselect: true,
