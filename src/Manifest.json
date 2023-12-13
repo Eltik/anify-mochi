@@ -1,7 +1,7 @@
 {
   "repository": {
     "name": "Anify",
-    "description": "Anify module coded by Eltik.",
+    "description": "Anify module coded by Eltik for https://anify.tv.",
     "author": "Eltik",
     "icon": "https://anify.tv/_next/image?url=%2Fcharacter.png&w=1080&q=75"
   },
