@@ -298,24 +298,29 @@ export default class Source extends SourceModule implements VideoContent {
                 const episodeList = groups[i];
                 if (!episodeList) continue;
 
-                const playlistItem: Paging<PlaylistItem> = {
-                    id: `${playlistId}-${provider.providerId}`,
-                    title: `${episodeList[0].number}-${episodeList[episodeList.length - 1].number}`,
-                    items: [],
-                };
-
-                for (const episode of episodeList) {
-                    playlistItem.items.push({
-                        id: `${API_BASENAME}/sources?id=${playlistId}&providerId=${provider.providerId}&watchId=${episode.id}&subType=${"sub"}&episodeNumber=${episode.number}`,
-                        title: episode.number.toString(),
-                        number: episode.number,
-                        description: episode.description ?? undefined,
-                        thumbnail: episode.img ?? undefined,
-                        tags: [],
-                    } satisfies PlaylistItem);
+                try {
+                    const playlistItem: Paging<PlaylistItem> = {
+                        id: `${playlistId}-${provider.providerId}`,
+                        title: `${episodeList[0].number}-${episodeList[episodeList.length - 1].number}`,
+                        items: [],
+                    };
+    
+                    for (const episode of episodeList) {
+                        playlistItem.items.push({
+                            id: `${API_BASENAME}/sources?id=${playlistId}&providerId=${provider.providerId}&watchId=${episode.id}&subType=${"sub"}&episodeNumber=${episode.number}`,
+                            title: episode.number.toString(),
+                            number: episode.number,
+                            description: episode.description ?? undefined,
+                            thumbnail: episode.img ?? undefined,
+                            tags: [],
+                        } satisfies PlaylistItem);
+                    }
+    
+                    pagings.push(playlistItem);
+                } catch (e) {
+                    console.error(e);
+                    console.log(episodeList);
                 }
-
-                pagings.push(playlistItem);
             }
 
             variants.push({
