@@ -300,7 +300,7 @@ export default class Source extends SourceModule implements VideoContent {
 
                 const playlistItem: Paging<PlaylistItem> = {
                     id: `${playlistId}-${provider.providerId}`,
-                    title: `${episodeList[0].number}-${episodeList[episodes.length - 1].number}`,
+                    title: `${episodeList[0].number}-${episodeList[episodeList.length - 1].number}`,
                     items: [],
                 };
 
