@@ -316,9 +316,9 @@ export default class Source extends SourceModule implements VideoContent {
                     thumbnail: episode.img ?? undefined,
                     tags: [],
                 } satisfies PlaylistItem);
-
-                pagings.push(playlistItem);
             }
+
+            pagings.push(playlistItem);
 
             variants.push({
                 id: `${playlistId}-${provider.providerId}`,
