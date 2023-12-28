@@ -26,6 +26,15 @@ import { MediaStatus } from "./enums/anify";
 const BASENAME = "https://anify.tv";
 const API_BASENAME = "https://api.anify.tv";
 
+const stringIsAValidUrl = (s) => {
+    try {
+        new URL(s);
+        return true;
+    } catch (err) {
+        return false;
+    }
+};
+
 export default class Source extends SourceModule implements VideoContent {
     metadata = {
         id: "AnifySource",
@@ -77,8 +86,8 @@ export default class Source extends SourceModule implements VideoContent {
                             : PlaylistStatus.unknown,
                     type: PlaylistType.video,
                     title: anime.title.english ?? anime.title.romaji ?? anime.title.native ?? "Unknown",
-                    bannerImage: anime.bannerImage ?? anime.coverImage ?? undefined,
-                    posterImage: anime.coverImage ?? anime.bannerImage ?? undefined,
+                    bannerImage: stringIsAValidUrl(anime.bannerImage) ? anime.bannerImage : undefined,
+                    posterImage: (anime.coverImage === null || anime.coverImage === undefined ? (anime.bannerImage === null || anime.bannerImage === undefined ? undefined : anime.bannerImage) : anime.coverImage) ?? undefined,
                 } satisfies Playlist)
         );
 
@@ -114,8 +123,8 @@ export default class Source extends SourceModule implements VideoContent {
                             : PlaylistStatus.unknown,
                     type: PlaylistType.video,
                     title: anime.title.english ?? anime.title.romaji ?? anime.title.native ?? "Unknown",
-                    bannerImage: anime.bannerImage ?? anime.coverImage ?? undefined,
-                    posterImage: anime.coverImage ?? anime.bannerImage ?? undefined,
+                    bannerImage: stringIsAValidUrl(anime.bannerImage) ? anime.bannerImage! : undefined,
+                    posterImage: (anime.coverImage === null || anime.coverImage === undefined ? (anime.bannerImage === null || anime.bannerImage === undefined ? undefined : anime.bannerImage) : anime.coverImage) ?? undefined,
                 } satisfies Playlist)
         );
 
@@ -138,8 +147,8 @@ export default class Source extends SourceModule implements VideoContent {
                             : PlaylistStatus.unknown,
                     type: PlaylistType.video,
                     title: anime.title.english ?? anime.title.romaji ?? anime.title.native ?? "Unknown",
-                    bannerImage: anime.bannerImage ?? anime.coverImage ?? undefined,
-                    posterImage: anime.coverImage ?? anime.bannerImage ?? undefined,
+                    bannerImage: stringIsAValidUrl(anime.bannerImage) ? anime.bannerImage! : undefined,
+                    posterImage: (anime.coverImage === null || anime.coverImage === undefined ? (anime.bannerImage === null || anime.bannerImage === undefined ? undefined : anime.bannerImage) : anime.coverImage) ?? undefined,
                 } satisfies Playlist)
         );
 
@@ -162,8 +171,8 @@ export default class Source extends SourceModule implements VideoContent {
                             : PlaylistStatus.unknown,
                     type: PlaylistType.video,
                     title: anime.title.english ?? anime.title.romaji ?? anime.title.native ?? "Unknown",
-                    bannerImage: anime.bannerImage ?? anime.coverImage ?? undefined,
-                    posterImage: anime.coverImage ?? anime.bannerImage ?? undefined,
+                    bannerImage: stringIsAValidUrl(anime.bannerImage) ? anime.bannerImage! : undefined,
+                    posterImage: (anime.coverImage === null || anime.coverImage === undefined ? (anime.bannerImage === null || anime.bannerImage === undefined ? undefined : anime.bannerImage) : anime.coverImage) ?? undefined,
                 } satisfies Playlist)
         );
 
@@ -186,8 +195,8 @@ export default class Source extends SourceModule implements VideoContent {
                             : PlaylistStatus.unknown,
                     type: PlaylistType.video,
                     title: anime.title.english ?? anime.title.romaji ?? anime.title.native ?? "Unknown",
-                    bannerImage: anime.bannerImage ?? anime.coverImage ?? undefined,
-                    posterImage: anime.coverImage ?? anime.bannerImage ?? undefined,
+                    bannerImage: stringIsAValidUrl(anime.bannerImage) ? anime.bannerImage! : undefined,
+                    posterImage: (anime.coverImage === null || anime.coverImage === undefined ? (anime.bannerImage === null || anime.bannerImage === undefined ? undefined : anime.bannerImage) : anime.coverImage) ?? undefined,
                 } satisfies Playlist)
         );
 
@@ -292,35 +301,23 @@ export default class Source extends SourceModule implements VideoContent {
 
             // Split provider.episodes into groups of twelve
             const episodes = provider.episodes;
-            const groups = episodes.map((_, i) => i % 12 === 0 && episodes.slice(i, i + 12)).filter(Boolean);
+            const playlistItem: Paging<PlaylistItem> = {
+                id: `${playlistId}-${provider.providerId}`,
+                title: `${episodes[0].number}-${episodes[episodes.length - 1].number}`,
+                items: [],
+            };
 
-            for (let i = 0 ; i < groups.length; i++) {
-                const episodeList = groups[i];
-                if (!episodeList) continue;
+            for (const episode of episodes) {
+                playlistItem.items.push({
+                    id: `${API_BASENAME}/sources?id=${playlistId}&providerId=${provider.providerId}&watchId=${episode.id}&subType=${"sub"}&episodeNumber=${episode.number}`,
+                    title: episode.number.toString(),
+                    number: episode.number,
+                    description: episode.description ?? undefined,
+                    thumbnail: episode.img ?? undefined,
+                    tags: [],
+                } satisfies PlaylistItem);
 
-                try {
-                    const playlistItem: Paging<PlaylistItem> = {
-                        id: `${playlistId}-${provider.providerId}`,
-                        title: `${episodeList[0].number}-${episodeList[episodeList.length - 1].number}`,
-                        items: [],
-                    };
-    
-                    for (const episode of episodeList) {
-                        playlistItem.items.push({
-                            id: `${API_BASENAME}/sources?id=${playlistId}&providerId=${provider.providerId}&watchId=${episode.id}&subType=${"sub"}&episodeNumber=${episode.number}`,
-                            title: episode.number.toString(),
-                            number: episode.number,
-                            description: episode.description ?? undefined,
-                            thumbnail: episode.img ?? undefined,
-                            tags: [],
-                        } satisfies PlaylistItem);
-                    }
-    
-                    pagings.push(playlistItem);
-                } catch (e) {
-                    console.error(e);
-                    console.log(episodeList);
-                }
+                pagings.push(playlistItem);
             }
 
             variants.push({
